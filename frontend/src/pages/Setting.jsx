@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { FiUser, FiEdit2, FiCamera, FiSave, FiX } from 'react-icons/fi';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+const backendURL = import.meta.env.VITE_BACKEND_URL
 const ProfileSettings = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState({
@@ -25,7 +25,7 @@ const ProfileSettings = () => {
     const fetchUserData = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await axios.get('http://localhost:8000/api/users/profile', {
+        const response = await axios.get(`${backendURL}/api/users/profile`, {
   headers: {
     Authorization: `Bearer ${token}`
   }
@@ -79,7 +79,7 @@ const ProfileSettings = () => {
 
     try {
         const token = localStorage.getItem('token');
-      const response = await axios.put('http://localhost:8000/api/users/profile', {
+      const response = await axios.put(`${backendURL}/api/users/profile`, {
   username: user.username,
   bio: user.bio,
   hobbies: user.hobbies,

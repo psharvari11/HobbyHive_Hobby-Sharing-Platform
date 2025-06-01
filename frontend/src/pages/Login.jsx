@@ -91,6 +91,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { motion } from "framer-motion";
 import { FiMail, FiLock, FiArrowRight } from "react-icons/fi";
+const backendURL = import.meta.env.VITE_BACKEND_URL
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -109,7 +110,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/users/login",
+        `${backendURL}/api/users/login`,
         formData,
         {
           headers: {
@@ -124,6 +125,7 @@ const Login = () => {
 
       setLoading(false);
        alert("Login Successful!");
+       console.log(backendURL)
       navigate("/dashboard"); // redirect after login
     } catch (err) {
       setLoading(false);

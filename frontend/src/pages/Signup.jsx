@@ -91,7 +91,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FiUser, FiMail, FiLock, FiArrowRight } from 'react-icons/fi';
 import axios from 'axios';
-
+  const backendURL = import.meta.env.VITE_BACKEND_URL
 const Signup = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail]     = useState("");
@@ -99,6 +99,7 @@ const Signup = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError]     = useState("");
   const navigate = useNavigate();
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -113,7 +114,7 @@ const Signup = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/users/signup",
+        `${backendURL}/api/users/signup`,
         formData,
         {
           headers: {

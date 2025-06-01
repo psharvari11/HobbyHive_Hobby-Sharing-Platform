@@ -38,7 +38,7 @@ useEffect(() => {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await fetch("http://localhost:8000/api/users/profile", {
+      const response = await fetch("https://hobbyhive-hobby-sharing-platform.onrender.com/api/users/profile", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -81,7 +81,7 @@ useEffect(() => {
 const handleLogout = async () => {
   try {
     const token = localStorage.getItem("token");
-    const response = await fetch("http://localhost:8000/api/users/logout", {
+    const response = await fetch("https://hobbyhive-hobby-sharing-platform.onrender.com/api/users/logout", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -92,6 +92,7 @@ const handleLogout = async () => {
     if (!response.ok) {
       const errData = await response.json();
       throw new Error(errData.msg || "Logout failed");
+      
     }
 
     // Remove token from localStorage
