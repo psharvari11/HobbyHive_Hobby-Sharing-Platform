@@ -26,7 +26,7 @@ exports.registerUser = async (req, res) => {
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
-    res.status(201).json({
+    res.status(201).json({msg:"Registered!",
       token,
       user: {
         id: user._id,
@@ -55,6 +55,7 @@ exports.loginUser = async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
     res.json({
+      msg:"Login Successfull!",
       token,
       user: {
         id: user._id,
@@ -72,13 +73,15 @@ exports.loginUser = async (req, res) => {
 
 
 exports.logoutUser = async (req, res) => {
-  const token = req.header('Authorization');
+  const authHeader = req.header('Authorization');
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(400).json({ msg: 'No token provided' });
+  }
 
-  if (!token) return res.status(400).json({ msg: 'No token provided' });
+  const token = authHeader.split(' ')[1]; 
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
     const expiryDate = new Date(decoded.exp * 1000);
 
     const blacklistedToken = new BlacklistedToken({ token, expiresAt: expiryDate });
@@ -89,6 +92,7 @@ exports.logoutUser = async (req, res) => {
     res.status(400).json({ msg: 'Invalid token' });
   }
 };
+
 
 
 
@@ -150,6 +154,34 @@ exports.resetPassword = async (req, res) => {
 
     res.json({ msg: 'Password has been reset successfully!' });
   } catch (error) {
+    res.status(500).json({ msg: 'Server error' });
+  }
+};
+
+exports.updateProfile = async (req, res) => {
+  try {
+    const userId = req.user; 
+
+    const { bio, hobbies, profilePic } = req.body;
+
+    const updateData = {};
+
+    if (bio !== undefined) updateData.bio = bio;
+    if (hobbies !== undefined) {
+      updateData.hobbies = hobbies;
+    }
+    if (profilePic !== undefined) updateData.profilePic = profilePic;
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $set: updateData },
+      { new: true } 
+    ).select('-password'); 
+    if (!updatedUser) return res.status(404).json({ msg: 'User not found' });
+
+    res.json({ msg: 'Profile updated!', user: updatedUser });
+  } catch (error) {
+    console.error(error);
     res.status(500).json({ msg: 'Server error' });
   }
 };
