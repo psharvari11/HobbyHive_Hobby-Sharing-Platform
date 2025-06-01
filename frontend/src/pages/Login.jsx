@@ -125,7 +125,7 @@ const Login = () => {
 
       setLoading(false);
        alert("Login Successful!");
-       console.log(backendURL)
+      //  console.log(backendURL)
       navigate("/dashboard"); // redirect after login
     } catch (err) {
       setLoading(false);
