@@ -18,11 +18,7 @@ This backend is built with **Node.js**, **Express**, and **MongoDB**, featuring:
 
 ---
 
-## 🗂 Folder Structure
 
-/backend
-│
-├── controllers/ # Route logic separated by feature
 
 
 ## ⚙️ Installation & Setup
@@ -32,36 +28,36 @@ This backend is built with **Node.js**, **Express**, and **MongoDB**, featuring:
 git clone https://github.com/psharvari11/HobbyHive_Hobby-Sharing-Platform.git
 
 ## Backend Setup:
-cd HobbyHive_Hobby-Sharing-Platform/backend
-Install dependencies
-npm install
-Set up environment variables
-.env
-PORT=5000
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_super_secret_jwt_key
-EMAIL_USER=your_email@example.com
-EMAIL_PASS=your_email_password
-Run the server
+-cd HobbyHive_Hobby-Sharing-Platform/backend
+- Install dependencies
+- npm install
+- Set up environment variables
+-- .env
+-- PORT=5000
+-- MONGO_URI=your_mongodb_connection_string
+-- JWT_SECRET=your_super_secret_jwt_key
+-- EMAIL_USER=your_email@example.com
+-- EMAIL_PASS=your_email_password
+-- Run the server
 
 ## Frontend Setup:
-cd  HobbyHive_Hobby-Sharing-Platform/frontend
-npm install
-.env (/frontend):
-VITE_BACKEND_URL=url
-npm run dev
+- cd  HobbyHive_Hobby-Sharing-Platform/frontend
+- npm install
+--.env (/frontend):
+- VITE_BACKEND_URL=url
+- npm run dev
 
 🛠 API Endpoints
 Auth
-POST /api/users/signup — Register new user
+--POST /api/users/signup — Register new user
 
-POST /api/users/login — Login user (returns JWT)
+- POST /api/users/login — Login user (returns JWT)
 
-POST /api/users/logout — Logout user (blacklists JWT)
+- POST /api/users/logout — Logout user (blacklists JWT)
 
-POST /api/users/forgot-password — Request password reset email
+- POST /api/users/forgot-password — Request password reset email
 
-POST /api/users/reset-password/:token — Reset password
+- POST /api/users/reset-password/:token — Reset password
 
 User
 GET /api/users/profile — Get logged-in user profile (Protected)
